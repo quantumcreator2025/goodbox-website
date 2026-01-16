@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Good Box Project | Coming Soon</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+
+    <style>
+        /* 
+         * DESIGN VARIABLES 
+         */
+        :root {
+            --color-bg: #F9F7F2; 
+            --color-text: #2E3A2F; /* Darker text for contrast against image */
+            --color-primary: #2E5D4B; /* Deep Green */
+            --color-accent: #E67E22; /* Orange */
+            --font-serif: 'Playfair Display', serif;
+            --font-sans: 'Lato', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body, html {
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+            font-family: var(--font-sans);
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* 
+         * BACKGROUND IMAGE 
+         * Using the specific Sample Image provided.
+         * Opacity set exactly to 0.5 (50%).
+         */
+        .bg-image {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* Your attached Sample Image_2.png */
+            background-image: url('https://z-cdn-media.chatglm.cn/files/a9d6cb0d-428a-4e2a-81d8-46a6863d66be.png?auth_key=1868377475-df0ed4c5fb334f28ae715998c403b7b2-0-daa902dda556a1fa8486e2906e363fd0'); 
+            background-size: cover;
+            background-position: center center;
+            opacity: 0.5; /* Requested 50% opacity */
+            z-index: 0;
+            filter: blur(1.5px); 
+        }
+
+        /* 
+         * OVERLAYS 
+         */
+        .bg-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(249, 247, 242, 0.4); /* Slight warm tint for text readability */
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* 
+         * MAIN CONTAINER 
+         */
+        main {
+            position: relative;
+            z-index: 10;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        /* 
+         * LOGO SECTION 
+         */
+        .logo-container {
+            width: 200px;
+            height: auto;
+            margin-bottom: 3rem;
+            opacity: 0;
+            animation: floatIn 1.5s ease-out forwards;
+            filter: drop-shadow(0 15px 25px rgba(0,0,0,0.2)); 
+        }
+
+        .logo-img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* 
+         * TYPOGRAPHY 
+         */
+        h1 {
+            font-family: var(--font-sans);
+            font-weight: 300;
+            font-size: 1.3rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--color-primary);
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            animation: fadeUp 1s ease-out 0.5s forwards;
+            text-shadow: 0 2px 10px rgba(255, 255, 255, 0.8);
+        }
+
+        .poetic-copy {
+            font-family: var(--font-serif);
+            font-size: 2rem;
+            line-height: 1.6;
+            max-width: 650px;
+            color: var(--color-text);
+            margin-bottom: 2.5rem;
+            opacity: 0;
+            animation: fadeUp 1s ease-out 0.8s forwards;
+            text-shadow: 0 1px 5px rgba(255, 255, 255, 0.6);
+        }
+
+        .poetic-copy em {
+            color: #d35400; 
+            font-style: italic;
+        }
+
+        .location {
+            font-size: 1rem;
+            font-weight: 400;
+            color: #3d3d3d;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 24px;
+            background: rgba(255, 255, 255, 0.5); 
+            border-radius: 50px;
+            backdrop-filter: blur(5px);
+            opacity: 0;
+            animation: fadeUp 1s ease-out 1.1s forwards;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .location svg {
+            width: 18px;
+            height: 18px;
+            fill: var(--color-primary);
+        }
+
+        /* 
+         * FOOTER 
+         */
+        footer {
+            position: absolute;
+            bottom: 2rem;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            font-size: 0.8rem;
+            color: #555;
+            letter-spacing: 0.1em;
+            z-index: 10;
+            opacity: 0;
+            animation: fadeIn 1.2s ease-out 1.6s forwards;
+            text-shadow: 0 1px 5px rgba(255,255,255,0.8);
+        }
+
+        /* 
+         * ANIMATION CANVAS 
+         */
+        #bg-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        /* 
+         * KEYFRAME ANIMATIONS 
+         */
+        @keyframes floatIn {
+            from { transform: translateY(20px) scale(0.95); opacity: 0; }
+            to { transform: translateY(0) scale(1); opacity: 1; }
+        }
+
+        @keyframes fadeUp {
+            from { transform: translateY(15px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes gentleFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+        }
+
+        .logo-container {
+            animation: floatIn 1.5s ease-out forwards, gentleFloat 6s ease-in-out 2s infinite;
+        }
+
+        /* 
+         * RESPONSIVE ADJUSTMENTS 
+         */
+        @media (max-width: 768px) {
+            .logo-container {
+                width: 160px;
+                margin-bottom: 2rem;
+            }
+            .poetic-copy {
+                font-size: 1.5rem;
+                padding: 0 1.5rem;
+            }
+            h1 {
+                font-size: 1rem;
+            }
+            .location {
+                font-size: 0.9rem;
+                padding: 10px 20px;
+                /* Adjust flex direction if text wraps, though keeping inline is preferred */
+                flex-wrap: wrap; 
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Background Image (Your Attached Sample Image, 50% Opacity) -->
+    <div class="bg-image"></div>
+    
+    <!-- Overlay for text readability -->
+    <div class="bg-overlay"></div>
+
+    <!-- Background Animation Canvas -->
+    <canvas id="bg-canvas"></canvas>
+
+    <main>
+        <!-- YOUR LOGO -->
+        <div class="logo-container">
+            <img class="logo-img" 
+                 src="https://z-cdn-media.chatglm.cn/files/7c3d4b73-c02b-4e2c-a360-77857ecae72f.png?auth_key=1868374628-060164755a264c1d8ce68bfd352c0809-0-606de03714fa7f320b6a13f4fb999e8f" 
+                 alt="The Good Box Project Logo">
+        </div>
+
+        <h1>Coming Soon</h1>
+
+        <div class="poetic-copy">
+            Small acts of care, <br>
+            <em>quietly changing the world</em> <br>
+            one box at a time.
+        </div>
+
+        <div class="location">
+            <svg viewBox="0 0 24 24">
+                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+            </svg>
+            Initiating from Mumbai, expanding to India.
+        </div>
+    </main>
+
+    <footer>
+        &copy; 2026 The Good Box Project
+    </footer>
+
+    <script>
+        /**
+         * SUBTLE PARTICLE ANIMATION
+         */
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+
+        let width, height;
+        let particles = [];
+
+        const config = {
+            particleCount: 30, 
+            baseSpeed: 0.15,    
+            colors: [
+                'rgba(255, 255, 255, 0.4)', 
+                'rgba(255, 215, 0, 0.2)'    
+            ]
+        };
+
+        function resize() {
+            width = window.innerWidth;
+            height = window.innerHeight;
+            canvas.width = width;
+            canvas.height = height;
+        }
+
+        class Particle {
+            constructor() {
+                this.reset();
+                this.y = Math.random() * height; 
+            }
+
+            reset() {
+                this.x = Math.random() * width;
+                this.y = height + Math.random() * 100;
+                this.size = Math.random() * 4 + 1; 
+                this.speed = (Math.random() * 0.5 + 0.1) + config.baseSpeed;
+                this.drift = (Math.random() - 0.5) * 0.3;
+                this.color = config.colors[Math.floor(Math.random() * config.colors.length)];
+                this.opacity = 0;
+                this.fadeState = 'in';
+            }
+
+            update() {
+                this.y -= this.speed;
+                this.x += this.drift;
+
+                if (this.fadeState === 'in') {
+                    this.opacity += 0.003;
+                    if (this.opacity >= 0.6) this.fadeState = 'sustain';
+                } else if (this.fadeState === 'sustain') {
+                    if (Math.random() > 0.995) this.fadeState = 'out';
+                } else {
+                    this.opacity -= 0.002;
+                }
+
+                if (this.y < -50 || this.opacity <= 0) {
+                    this.reset();
+                    this.y = height + 50;
+                }
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.globalAlpha = Math.max(0, this.opacity);
+                ctx.fill();
+                ctx.globalAlpha = 1;
+            }
+        }
+
+        function init() {
+            resize();
+            particles = [];
+            for (let i = 0; i < config.particleCount; i++) {
+                particles.push(new Particle());
+            }
+            loop();
+        }
+
+        function loop() {
+            ctx.clearRect(0, 0, width, height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(loop);
+        }
+
+        window.addEventListener('resize', resize);
+        init();
+
+    </script>
+</body>
+</html>
