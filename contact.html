@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | The Good Box Project</title>
+    <meta name="description" content="Let’s Create Goodness Together. Connect with The Good Box Project to volunteer, collaborate, or support our mission.">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Merriweather:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <style>
+        /* =========================================
+           1. CSS VARIABLES & RESET
+           ========================================= */
+        :root {
+            --primary-color: #3A5F40; /* Muted Forest Green */
+            --primary-dark: #2C4730;
+            --secondary-color: #D4A373; /* Warm Sand/Beige */
+            --accent-color: #BC4749; /* Muted Terracotta */
+            
+            --bg-body: #FDFBF7; /* Off-white/Cream */
+            --bg-section-alt: #F3F0EB; /* Slightly darker cream */
+            --text-dark: #2C3E50;
+            --text-light: #5D6D7E;
+            --white: #ffffff;
+
+            --font-heading: 'Merriweather', serif;
+            --font-body: 'Lato', sans-serif;
+
+            --shadow-card: 0 10px 30px rgba(0,0,0,0.05);
+            --shadow-hover: 0 15px 35px rgba(0,0,0,0.1);
+            --radius-card: 12px;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-body);
+            color: var(--text-dark);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Utility Classes */
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .section-padding {
+            padding: 80px 0;
+        }
+
+        .text-center { text-align: center; }
+        
+        .section-title {
+            font-family: var(--font-heading);
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background-color: var(--secondary-color);
+            margin: 10px auto 0;
+            border-radius: 2px;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 14px 32px;
+            border-radius: 50px; /* Standard Pill Shape for all pages */
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: var(--transition);
+        }
+
+        /* Standard Primary Button (Green Pill) */
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        /* Form Submit Button (Square/Full Width Override) */
+        .btn-submit {
+            background-color: var(--primary-color);
+            color: var(--white);
+            width: 100%;
+            text-align: center;
+            border-radius: 8px;
+            padding: 14px 32px;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-submit:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border-color: var(--white);
+            color: var(--white);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--white);
+            color: var(--primary-color);
+        }
+
+        /* =========================================
+           2. NAVIGATION BAR
+           ========================================= */
+        .navbar {
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            height: 80px;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .logo {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            letter-spacing: -0.5px;
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .nav-link {
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--text-dark);
+            position: relative;
+        }
+
+        .nav-link:hover { color: var(--primary-color); }
+        
+        .nav-link.active {
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+
+        .donate-btn-nav {
+            background-color: var(--accent-color);
+            color: var(--white);
+            padding: 10px 24px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .donate-btn-nav:hover { background-color: #a63b3d; }
+
+        .hamburger { display: none; cursor: pointer; }
+        .bar { display: block; width: 25px; height: 3px; margin: 5px auto; background-color: var(--text-dark); transition: all 0.3s ease-in-out; }
+
+        /* =========================================
+           3. HERO SECTION (CLIMAX)
+           ========================================= */
+        .hero {
+            position: relative;
+            height: 85vh;
+            min-height: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--white);
+            /* Updated for local images folder */
+            background: url('images/contact-hero.jpg') no-repeat center center/cover;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(44, 71, 48, 0.85), rgba(44, 71, 48, 0.75));
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            padding: 0 20px;
+            animation: fadeIn 1.5s ease;
+        }
+
+        .hero-title {
+            font-family: var(--font-heading);
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+        }
+
+        .hero-subtitle {
+            font-size: 1.6rem;
+            font-weight: 300;
+            margin-bottom: 1.5rem;
+            font-style: italic;
+        }
+
+        .hero-desc {
+            font-size: 1.1rem;
+            margin-bottom: 2.5rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            opacity: 0.95;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* =========================================
+           4. CONTACT MAIN LAYOUT
+           ========================================= */
+        .contact-layout {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 60px;
+            margin-top: -80px; /* Overlap hero */
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Info Card */
+        .contact-info-card {
+            background: var(--white);
+            padding: 40px;
+            border-radius: var(--radius-card);
+            box-shadow: var(--shadow-card);
+            height: fit-content;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .info-icon {
+            width: 50px;
+            height: 50px;
+            background-color: var(--bg-section-alt);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-color);
+            flex-shrink: 0;
+        }
+        
+        .info-icon svg { width: 24px; height: 24px; fill: currentColor; }
+
+        .info-text h4 {
+            color: var(--primary-color);
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+
+        .info-text p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        /* Form Section */
+        .contact-form-card {
+            background: var(--white);
+            padding: 40px;
+            border-radius: var(--radius-card);
+            box-shadow: var(--shadow-card);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text-dark);
+            font-size: 0.9rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            transition: var(--transition);
+            background-color: #fafafa;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            background-color: var(--white);
+            box-shadow: 0 0 0 4px rgba(58, 95, 64, 0.1);
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 25px;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+        
+        .checkbox-group input { width: 18px; height: 18px; accent-color: var(--primary-color); }
+
+        .response-note {
+            margin-top: 15px;
+            font-size: 0.85rem;
+            color: var(--text-light);
+            text-align: center;
+        }
+
+        /* =========================================
+           5. WHY MESSAGE MATTERS
+           ========================================= */
+        .emotional-section {
+            background-color: var(--bg-section-alt);
+            text-align: center;
+        }
+
+        .emotional-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .emotional-item h4 {
+            color: var(--accent-color);
+            margin-bottom: 10px;
+            font-family: var(--font-heading);
+        }
+
+        /* =========================================
+           6. IMPACT CTA STRIP
+           ========================================= */
+        .impact-cta-strip {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-color) 100%);
+            color: var(--white);
+            text-align: center;
+            padding: 80px 0;
+        }
+
+        .cta-title {
+            font-family: var(--font-heading);
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .mini-btns {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .mini-btn {
+            background: rgba(255,255,255,0.15);
+            padding: 10px 25px;
+            border-radius: 30px;
+            color: var(--white);
+            border: 1px solid rgba(255,255,255,0.3);
+            font-weight: 600;
+        }
+
+        .mini-btn:hover {
+            background: var(--white);
+            color: var(--primary-color);
+        }
+
+        /* =========================================
+           7. MAP & SOCIAL
+           ========================================= */
+        .map-section {
+            background-color: var(--white);
+            padding-bottom: 0;
+        }
+
+        .map-container {
+            width: 100%;
+            height: 400px;
+            filter: grayscale(100%); /* Modern look */
+            transition: var(--transition);
+        }
+        
+        .map-container:hover { filter: grayscale(0%); }
+
+        .social-cta {
+            padding: 60px 0;
+            text-align: center;
+            background-color: var(--bg-body);
+        }
+
+        .social-icons-large {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .social-icon-lg {
+            width: 60px;
+            height: 60px;
+            background: var(--white);
+            border-radius: 50%;
+            box-shadow: var(--shadow-card);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-color);
+            transition: var(--transition);
+        }
+
+        .social-icon-lg:hover {
+            transform: translateY(-5px);
+            background: var(--primary-color);
+            color: var(--white);
+        }
+
+        .social-icon-lg svg { width: 28px; height: 28px; fill: currentColor; }
+
+        /* =========================================
+           8. FAQ SECTION
+           ========================================= */
+        .faq-section {
+            background-color: var(--bg-section-alt);
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        details {
+            background: var(--white);
+            margin-bottom: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        details[open] {
+            box-shadow: var(--shadow-card);
+        }
+
+        summary {
+            padding: 20px;
+            font-weight: 600;
+            color: var(--text-dark);
+            cursor: pointer;
+            list-style: none;
+            position: relative;
+            padding-right: 40px;
+        }
+
+        summary::-webkit-details-marker { display: none; }
+
+        summary::after {
+            content: '+';
+            position: absolute;
+            right: 20px;
+            font-size: 1.5rem;
+            color: var(--secondary-color);
+            line-height: 1;
+        }
+
+        details[open] summary::after { content: '-'; }
+
+        .faq-answer {
+            padding: 0 20px 20px;
+            color: var(--text-light);
+            line-height: 1.6;
+            border-top: 1px solid #f0f0f0;
+            padding-top: 15px;
+        }
+
+        /* =========================================
+           9. CLOSING MESSAGE
+           ========================================= */
+        .closing-message {
+            padding: 100px 0;
+            text-align: center;
+            background: linear-gradient(to bottom, var(--bg-body), #fff);
+        }
+
+        .closing-quote {
+            font-family: var(--font-heading);
+            font-size: 2rem;
+            color: var(--primary-color);
+            max-width: 800px;
+            margin: 0 auto 20px;
+            line-height: 1.5;
+        }
+
+        .closing-sub {
+            font-size: 1.1rem;
+            color: var(--text-light);
+        }
+
+        .signature {
+            margin-top: 30px;
+            font-weight: 700;
+            color: var(--secondary-color);
+            letter-spacing: 1px;
+        }
+
+        /* =========================================
+           10. FOOTER
+           ========================================= */
+        footer {
+            background-color: #1a2e1f;
+            color: #ccc;
+            padding: 60px 0 20px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 40px;
+        }
+
+        .footer-col h4 {
+            color: var(--white);
+            margin-bottom: 20px;
+            font-family: var(--font-heading);
+        }
+
+        .footer-links li { margin-bottom: 10px; }
+        .footer-links a:hover { color: var(--secondary-color); padding-left: 5px; }
+
+        .social-icons { display: flex; gap: 15px; }
+        .social-icon {
+            width: 40px; height: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+        .social-icon:hover { background: var(--secondary-color); color: var(--white); }
+        .social-icon svg { width: 20px; height: 20px; fill: currentColor; }
+
+        .contact-info p { margin-bottom: 10px; display: flex; align-items: center; gap: 10px; font-size: 0.9rem; }
+        .copyright { text-align: center; font-size: 0.85rem; opacity: 0.6; }
+
+        /* =========================================
+           MEDIA QUERIES
+           ========================================= */
+        @media (max-width: 900px) {
+            .contact-layout { grid-template-columns: 1fr; margin-top: 40px; }
+            .hero-title { font-size: 2.5rem; }
+        }
+
+        @media (max-width: 768px) {
+            .section-title { font-size: 2rem; }
+            .hamburger { display: block; z-index: 1001; }
+            
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 80px;
+                flex-direction: column;
+                background-color: var(--white);
+                width: 100%;
+                text-align: center;
+                padding: 20px 0;
+                transition: 0.3s;
+                box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+            }
+
+            .nav-menu.active { left: 0; }
+            
+            .mini-btns { flex-direction: column; width: 100%; }
+            .mini-btn { width: 100%; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVIGATION -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">The Good Box Project</a>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="mission.html" class="nav-link">Mission & Vision</a></li>
+                <li><a href="founder.html" class="nav-link">Founders</a></li>
+                <li><a href="collaborate.html" class="nav-link">Collaborate</a></li>
+                <li><a href="contact.html" class="nav-link active">Contact</a></li>
+                <li><a href="donate.html" class="donate-btn-nav">Donate</a></li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 1. HERO SECTION -->
+    <header class="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">Let’s Create Goodness Together.</h1>
+            <p class="hero-subtitle">“Every message matters. Every conversation can become a turning point for someone in need.”</p>
+            <p class="hero-desc">
+                Kindness begins with the simple act of reaching out. Whether you want to volunteer, collaborate, or simply ask a question, we are listening. From our roots in Mumbai to our expanding vision across India, your connection starts here.
+            </p>
+            <div class="hero-buttons">
+                <!-- Updated: Standard Pill Style + Google Form Link -->
+                <a href="https://forms.google.com/" target="_blank" class="btn btn-primary">Write to Us</a>
+                <a href="collaborate.html" class="btn btn-outline">Collaborate Now</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- 2. CONTACT INFO & 3. FORM SECTION -->
+    <section class="container contact-section" style="padding-top: 40px;">
+        <div class="contact-layout">
+            
+            <!-- Contact Info -->
+            <div class="contact-info-card">
+                <h3 style="margin-bottom: 25px; color: var(--primary-color); font-family: var(--font-heading);">Get in Touch</h3>
+                
+                <div class="info-item">
+                    <div class="info-icon">
+                        <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                    </div>
+                    <div class="info-text">
+                        <h4>Email Us</h4>
+                        <p>thegoodboxproject@outlook.com</p>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <div class="info-icon">
+                        <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 1.25 0 2.45.2 3.57.57.35.13.75.04 1.02-.24l2.2-2.2z"/></svg>
+                    </div>
+                    <div class="info-text">
+                        <h4>Call Us</h4>
+                        <p>+91 9619766033</p>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <div class="info-icon">
+                        <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                    </div>
+                    <div class="info-text">
+                        <h4>Location</h4>
+                        <p>Mumbai, India</p>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <div class="info-icon">
+                        <svg viewBox="0 0 24 24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
+                    </div>
+                    <div class="info-text">
+                        <h4>Website</h4>
+                        <p>www.thegoodboxproject.org</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Form -->
+            <div class="contact-form-card" id="contact-form">
+                <h3 style="margin-bottom: 25px; color: var(--primary-color); font-family: var(--font-heading);">Send us a Message</h3>
+                <form action="#" method="POST">
+                    <div class="form-group">
+                        <label class="form-label">Full Name</label>
+                        <input type="text" class="form-control" placeholder="Your full name" required>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                        <div class="form-group">
+                            <label class="form-label">Email Address</label>
+                            <input type="email" class="form-control" placeholder="your@email.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Phone Number (Optional)</label>
+                            <input type="tel" class="form-control" placeholder="+91 XXXXX XXXXX">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Subject</label>
+                        <select class="form-control">
+                            <option>General Query</option>
+                            <option>Volunteering</option>
+                            <option>Internship</option>
+                            <option>Corporate/CSR Partnership</option>
+                            <option>Donation / Support</option>
+                            <option>Media & Press</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Message</label>
+                        <textarea class="form-control" placeholder="How would you like to help or what would you like to know?"></textarea>
+                    </div>
+
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="consent" required>
+                        <label for="consent">I agree to be contacted back regarding my inquiry.</label>
+                    </div>
+
+                    <!-- Changed class to btn-submit to keep it full width/square as desired for forms -->
+                    <button type="submit" class="btn-submit">Send Message</button>
+                    
+                    <p class="response-note">We usually respond within 24–48 hours.</p>
+                </form>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 4. WHY YOUR MESSAGE MATTERS -->
+    <section class="section-padding emotional-section">
+        <div class="container">
+            <h2 class="section-title">Why Your Message Matters</h2>
+            <p class="intro-text" style="max-width: 700px; margin: 0 auto;">You might think your email or call is small. To the families we support, it is the start of something life-changing.</p>
+            
+            <div class="emotional-grid">
+                <div class="emotional-item">
+                    <h4>A Single Volunteer Message</h4>
+                    <p>Can feed a family for a week by mobilizing resources on the ground.</p>
+                </div>
+                <div class="emotional-item">
+                    <h4>A Donation Inquiry</h4>
+                    <p>Can sponsor a month of dry ration kits for the most vulnerable.</p>
+                </div>
+                <div class="emotional-item">
+                    <h4>A Corporate Email</h4>
+                    <p>Can support hundreds of families during sudden emergencies or floods.</p>
+                </div>
+                <div class="emotional-item">
+                    <h4>A Student Reaching Out</h4>
+                    <p>Can become a lifelong part of the movement for social change.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. IMPACT CTA STRIP -->
+    <section class="impact-cta-strip">
+        <div class="container">
+            <h3 class="cta-title">Before You Leave…</h3>
+            <p style="font-size: 1.2rem; opacity: 0.9; margin-bottom: 20px;">“If you are reading this, you are already someone who cares. And caring is where change begins.”</p>
+            
+            <div class="mini-btns">
+                <a href="collaborate.html" class="mini-btn">Collaborate With Us</a>
+                <a href="donate.html" class="mini-btn">Make a Donation</a>
+                <a href="mission.html" class="mini-btn">Join the Movement</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. GOOGLE MAP SECTION -->
+    <section class="map-section">
+        <div class="container text-center" style="padding: 60px 15px 40px;">
+            <h2 class="section-title">We’re Based in Mumbai</h2>
+            <p style="margin-bottom: 30px; color: var(--text-light);">Initiating from Mumbai, expanding to India.</p>
+        </div>
+        <!-- Generic Placeholder for Google Map -->
+        <div class="map-container">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d60324.92767768267!2d72.8142954783203!3d19.075985900000004!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c6306644edc1%3A0x5da4ed8f8d648c69!2sMumbai%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1650000000000!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+    </section>
+
+    <!-- 7. SOCIAL MEDIA SECTION -->
+    <section class="social-cta">
+        <div class="container">
+            <h2 class="section-title">Stay Connected With Good Box Community</h2>
+            <p>Follow our work. Share our mission. Be part of story.</p>
+            
+            <div class="social-icons-large">
+                <!-- Instagram -->
+                <a href="https://instagram.com/" target="_blank" class="social-icon-lg" aria-label="Instagram">
+                    <svg viewBox="0 0 24 24"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 3.8 7.6v8.8A3.6 3.6 0 0 0 7.6 20.2h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6A3.6 3.6 0 0 0 16.4 4H7.6m9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8 1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3z"/></svg>
+                </a>
+                <!-- Facebook -->
+                <a href="https://facebook.com/" target="_blank" class="social-icon-lg" aria-label="Facebook">
+                    <svg viewBox="0 0 24 24"><path d="M12 2.04c-5.5 0-10 4.49-10 10.02 0 5 3.66 9.15 8.44 9.9v-7H7.9v-2.9h2.54V9.85c0-2.51 1.49-3.89 3.78-3.89 1.09 0 2.23.19 2.23.19v2.47h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.45 2.9h-2.33v7a10 10 0 0 0 8.44-9.9c0-5.53-4.5-10.02-10-10.02z"/></svg>
+                </a>
+                <!-- YouTube -->
+                <a href="https://youtube.com/" target="_blank" class="social-icon-lg" aria-label="YouTube">
+                    <svg viewBox="0 0 24 24"><path d="M23.5 6.19a3.02 3.02 0 0 0-2.12-2.14C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.38.55A3.02 3.02 0 0 0 .5 6.19C0 8.11 0 12 0 12s0 3.89.5 5.81a3.02 3.02 0 0 0 2.12 2.14c1.88.55 9.38.55 9.38.55s7.5 0 9.38-.55a3.02 3.02 0 0 0 2.12-2.14C24 15.89 24 12 24 12s0-3.89-.5-5.81zM9.55 15.57V8.43L15.82 12l-6.27 3.57z"/></svg>
+                </a>
+                <!-- X (Twitter) -->
+                <a href="https://x.com/" target="_blank" class="social-icon-lg" aria-label="X (Twitter)">
+                    <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                </a>
+                <!-- LinkedIn -->
+                <a href="https://linkedin.com/" target="_blank" class="social-icon-lg" aria-label="LinkedIn">
+                    <svg viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 8. FAQ SECTION (DUMMY OPERATIONAL QUESTIONS) -->
+    <section class="section-padding faq-section">
+        <div class="container">
+            <div class="text-center">
+                <h2 class="section-title">Frequently Asked Questions</h2>
+                <p class="intro-text">Common questions about our operations and website.</p>
+            </div>
+
+            <div class="faq-container">
+                <details>
+                    <summary>How are the operations of The Good Box Project funded?</summary>
+                    <div class="faq-answer">
+                        Our operations are funded entirely through individual donations, corporate CSR partnerships, and community fundraising events. We maintain 100% financial transparency and publish annual reports on our website.
+                    </div>
+                </details>
+                <details>
+                    <summary>How can I track the status of my donation on the website?</summary>
+                    <div class="faq-answer">
+                        Currently, we send a detailed receipt and impact report via email within 7 days of receiving a donation. We are working on a donor portal that will allow you to track your impact in real-time directly on the website.
+                    </div>
+                </details>
+                <details>
+                    <summary>Are the stories and photos on the website real?</summary>
+                    <div class="faq-answer">
+                        Yes, absolute authenticity is our core value. Every story shared on our website and social media is from a real beneficiary or volunteer. We take consent before sharing any personal details.
+                    </div>
+                </details>
+                <details>
+                    <summary>Can I volunteer at your Mumbai operations center?</summary>
+                    <div class="faq-answer">
+                        Yes! Our main operations center is in Mumbai. You can visit us for ration packing sessions every Saturday. Please fill out the "Collaborate" form to schedule a visit so we can prepare for your arrival.
+                    </div>
+                </details>
+                <details>
+                    <summary>Is my data safe on this website?</summary>
+                    <div class="faq-answer">
+                        We respect your privacy. We do not sell or share your data with third parties. Your information is used solely for communication regarding your donation or volunteering interest.
+                    </div>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- 9. FINAL CLOSING MESSAGE -->
+    <section class="closing-message">
+        <div class="container">
+            <p class="closing-quote">
+                “Some people scroll. Some people care. Some people act. If you’re here — you are one of us.”
+            </p>
+            <p class="closing-sub">Thank you for reaching this far.</p>
+            <div class="signature">— The Good Box Project Team</div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4>The Good Box Charitable Trust</h4>
+                    <p>Restoring dignity, one Good Box at a time. A non-profit charitable trust.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="mission.html">Mission & Vision</a></li>
+                        <li><a href="founder.html">Founders</a></li>
+                        <li><a href="collaborate.html">Collaborate</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="donate.html">Donate</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact Us</h4>
+                    <div class="contact-info">
+                        <p>📞 9619766033</p>
+                        <p>✉️ thegoodboxproject@outlook.com</p>
+                        <p>📍 Mumbai, India</p>
+                    </div>
+                    <div class="social-icons" style="margin-top: 20px;">
+                        <a href="#" class="social-icon" aria-label="Instagram">
+                            <svg viewBox="0 0 24 24"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 3.8 7.6v8.8A3.6 3.6 0 0 0 7.6 20.2h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6A3.6 3.6 0 0 0 16.4 4H7.6m9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8 1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3z"/></svg>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="Facebook">
+                            <svg viewBox="0 0 24 24"><path d="M12 2.04c-5.5 0-10 4.49-10 10.02 0 5 3.66 9.15 8.44 9.9v-7H7.9v-2.9h2.54V9.85c0-2.51 1.49-3.89 3.78-3.89 1.09 0 2.23.19 2.23.19v2.47h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.45 2.9h-2.33v7a10 10 0 0 0 8.44-9.9c0-5.53-4.5-10.02-10-10.02z"/></svg>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="YouTube">
+                            <svg viewBox="0 0 24 24"><path d="M23.5 6.19a3.02 3.02 0 0 0-2.12-2.14C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.38.55A3.02 3.02 0 0 0 .5 6.19C0 8.11 0 12 0 12s0 3.89.5 5.81a3.02 3.02 0 0 0 2.12 2.14c1.88.55 9.38.55 9.38.55s7.5 0 9.38-.55a3.02 3.02 0 0 0 2.12-2.14C24 15.89 24 12 24 12s0-3.89-.5-5.81zM9.55 15.57V8.43L15.82 12l-6.27 3.57z"/></svg>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="X (Twitter)">
+                            <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="LinkedIn">
+                            <svg viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                © 2026 The Good Box Charitable Trust. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Minimal JS -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const hamburger = document.querySelector('.hamburger');
+            const navMenu = document.querySelector('.nav-menu');
+
+            hamburger.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+            });
+
+            document.querySelectorAll('.nav-link').forEach(n => n.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+            }));
+        });
+    </script>
+</body>
+</html>

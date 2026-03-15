@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Founders | The Good Box Project</title>
+    <meta name="description" content="Driven by empathy. Inspired by lived experience. Meet the founders of The Good Box Project.">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Merriweather:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <style>
+        /* =========================================
+           1. CSS VARIABLES & RESET
+           ========================================= */
+        :root {
+            --primary-color: #3A5F40; /* Muted Forest Green */
+            --primary-dark: #2C4730;
+            --secondary-color: #D4A373; /* Warm Sand/Beige */
+            --accent-color: #BC4749; /* Muted Terracotta */
+            
+            --bg-body: #FDFBF7; /* Off-white/Cream */
+            --bg-section-alt: #F3F0EB; /* Slightly darker cream */
+            --text-dark: #2C3E50;
+            --text-light: #5D6D7E;
+            --white: #ffffff;
+
+            --font-heading: 'Merriweather', serif;
+            --font-body: 'Lato', sans-serif;
+
+            --shadow-card: 0 10px 30px rgba(0,0,0,0.05);
+            --shadow-hover: 0 15px 35px rgba(0,0,0,0.1);
+            --radius-card: 12px;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-body);
+            color: var(--text-dark);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Utility Classes */
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .section-padding {
+            padding: 80px 0;
+        }
+
+        .text-center { text-align: center; }
+        
+        .section-title {
+            font-family: var(--font-heading);
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background-color: var(--secondary-color);
+            margin: 10px auto 0;
+            border-radius: 2px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 32px;
+            border-radius: 50px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        /* =========================================
+           2. NAVIGATION BAR
+           ========================================= */
+        .navbar {
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            height: 80px;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .logo {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            letter-spacing: -0.5px;
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .nav-link {
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--text-dark);
+            position: relative;
+        }
+
+        .nav-link:hover { color: var(--primary-color); }
+        
+        .nav-link.active {
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+
+        .donate-btn-nav {
+            background-color: var(--accent-color);
+            color: var(--white);
+            padding: 10px 24px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .donate-btn-nav:hover {
+            background-color: #a63b3d;
+            color: var(--white);
+        }
+
+        .hamburger { display: none; cursor: pointer; }
+        .bar { display: block; width: 25px; height: 3px; margin: 5px auto; background-color: var(--text-dark); transition: all 0.3s ease-in-out; }
+
+        /* =========================================
+           3. HERO SECTION
+           ========================================= */
+        .hero {
+            position: relative;
+            height: 70vh;
+            min-height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--white);
+            /* Updated for local images folder */
+            background: url('images/founders-hero.jpg') no-repeat center center/cover;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(44, 71, 48, 0.8), rgba(44, 71, 48, 0.6));
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            padding: 0 20px;
+        }
+
+        .hero-title {
+            font-family: var(--font-heading);
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero-subtitle {
+            font-size: 1.4rem;
+            font-weight: 300;
+            line-height: 1.6;
+        }
+
+        /* =========================================
+           4. INTRODUCTION
+           ========================================= */
+        .intro-text {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            font-size: 1.2rem;
+            color: var(--text-light);
+            font-family: var(--font-heading);
+        }
+
+        /* =========================================
+           5. FOUNDER PROFILES
+           ========================================= */
+        .founder-wrapper {
+            display: grid;
+            gap: 80px;
+        }
+
+        .founder-section {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 60px;
+            align-items: start;
+        }
+
+        /* Reverse order for second founder for visual variety */
+        .founder-section.reverse {
+            grid-template-columns: 1.2fr 1fr;
+        }
+
+        .founder-image-wrapper {
+            position: relative;
+        }
+
+        .founder-img {
+            width: 100%;
+            border-radius: var(--radius-card);
+            box-shadow: var(--shadow-card);
+            transition: var(--transition);
+        }
+
+        .founder-img:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .founder-content h2 {
+            font-family: var(--font-heading);
+            font-size: 2.2rem;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .founder-role {
+            font-size: 1.1rem;
+            color: var(--secondary-color);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 25px;
+            display: block;
+        }
+
+        .founder-bio {
+            color: var(--text-light);
+            margin-bottom: 20px;
+            font-size: 1.05rem;
+        }
+
+        .founder-links {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+
+        .founder-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-right: 20px;
+        }
+        
+        .founder-link:hover { text-decoration: underline; }
+
+        /* Quote Box */
+        .quote-box {
+            background-color: var(--bg-section-alt);
+            border-left: 4px solid var(--accent-color);
+            padding: 20px;
+            margin: 25px 0;
+            font-family: var(--font-heading);
+            font-style: italic;
+            color: var(--text-dark);
+            border-radius: 0 8px 8px 0;
+        }
+
+        .quote-author {
+            display: block;
+            margin-top: 10px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            font-style: normal;
+            color: var(--accent-color);
+        }
+
+        /* =========================================
+           6. SHARED VALUES
+           ========================================= */
+        .values-section {
+            background-color: var(--bg-section-alt);
+        }
+
+        .values-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 40px;
+        }
+
+        .value-tag {
+            background: var(--white);
+            padding: 10px 25px;
+            border-radius: 30px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+            font-weight: 600;
+            color: var(--primary-color);
+            border: 1px solid rgba(58, 95, 64, 0.1);
+        }
+
+        .unified-statement {
+            max-width: 800px;
+            margin: 50px auto 0;
+            text-align: center;
+            font-family: var(--font-heading);
+            font-size: 1.3rem;
+            line-height: 1.8;
+            color: var(--primary-dark);
+        }
+
+        /* =========================================
+           7. IMPACT SECTION
+           ========================================= */
+        .impact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .impact-text h3 {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        .impact-list {
+            list-style: none;
+            margin-top: 20px;
+        }
+
+        .impact-list li {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 15px;
+            color: var(--text-light);
+        }
+
+        .impact-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--secondary-color);
+            font-weight: 700;
+        }
+
+        /* =========================================
+           8. FOOTER
+           ========================================= */
+        footer {
+            background-color: #1a2e1f;
+            color: #ccc;
+            padding: 60px 0 20px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 40px;
+        }
+
+        .footer-col h4 {
+            color: var(--white);
+            margin-bottom: 20px;
+            font-family: var(--font-heading);
+        }
+
+        .footer-links li { margin-bottom: 10px; }
+        .footer-links a:hover { color: var(--secondary-color); padding-left: 5px; }
+
+        .social-icons { display: flex; gap: 15px; }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .social-icon:hover { background: var(--secondary-color); color: var(--white); }
+        .social-icon svg { width: 20px; height: 20px; fill: currentColor; }
+
+        .contact-info p { margin-bottom: 10px; display: flex; align-items: center; gap: 10px; font-size: 0.9rem; }
+        .copyright { text-align: center; font-size: 0.85rem; opacity: 0.6; }
+
+        /* =========================================
+           MEDIA QUERIES
+           ========================================= */
+        @media (max-width: 768px) {
+            .hero-title { font-size: 2.2rem; }
+            .founder-section, .founder-section.reverse, .impact-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .hamburger { display: block; z-index: 1001; }
+            
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 80px;
+                flex-direction: column;
+                background-color: var(--white);
+                width: 100%;
+                text-align: center;
+                padding: 20px 0;
+                transition: 0.3s;
+                box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+            }
+
+            .nav-menu.active { left: 0; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVIGATION -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">The Good Box Project</a>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="mission.html" class="nav-link">Mission & Vision</a></li>
+                <li><a href="founder.html" class="nav-link active">Founders</a></li>
+                <li><a href="volunteer.html" class="nav-link">Volunteer</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+                <li><a href="donate.html" class="donate-btn-nav">Donate</a></li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 1. HERO SECTION -->
+    <header class="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">Our Founders</h1>
+            <p class="hero-subtitle">“Driven by empathy. Inspired by lived experience. Committed to action.”</p>
+        </div>
+    </header>
+
+    <!-- 2. INTRODUCTION -->
+    <section class="section-padding">
+        <div class="container">
+            <p class="intro-text">
+                The heart of The Good Box Project begins with its founders. This page exists to honor the lived motivations, values, and personal journeys that shaped our mission. It is their belief that compassion must be coupled with action to create real change.
+            </p>
+        </div>
+    </section>
+
+    <!-- 3. FOUNDER 1: PRIYANKA MANISH RABHADIA -->
+    <section class="section-padding" style="background-color: #fcfcfc;">
+        <div class="container">
+            <div class="founder-section">
+                <div class="founder-image-wrapper">
+                    <!-- Updated for local images folder -->
+                    <img src="images/founder-priyanka.jpg" alt="Priyanka Manish Rabhadia" class="founder-img">
+                </div>
+                <div class="founder-content">
+                    <h2>Priyanka Manish Rabhadia</h2>
+                    <span class="founder-role">Co-Founder & Visionary Leader</span>
+                    
+                    <p class="founder-bio">
+                        Priyanka is a purpose-driven leader whose professional journey has always been guided by a deep sense of compassion. She believes that business and social initiatives should not just generate profit, but empower communities and uplift lives. Her approach to leadership is human-centered; she builds systems that respect the dignity of every individual involved.
+                    </p>
+                    <p class="founder-bio">
+                        As the co-founder of The Good Box Project, Priyanka brings strategic clarity, operational discipline, and an unwavering commitment to "dignity-first" giving. She has been recognized for her efforts in empowering women and creating sustainable impact through compassion.
+                    </p>
+
+                    <div class="quote-box">
+                        “True leadership is not about authority. It is about standing with the community, understanding their pain, and channeling resources with empathy.”
+                        <span class="quote-author">- Priyanka on Compassionate Leadership</span>
+                    </div>
+
+                    <h3>Why She Founded The Good Box Project</h3>
+                    <p class="founder-bio">
+                        Priyanka’s vision was born from witnessing the stark contrast between the city's prosperity and the struggle of its daily wage earners. She realized that while aid existed, it often lacked the element of dignity. She wanted to change the narrative of charity from one of "handouts" to one of "empowerment." Her core values drive the organization's culture of accountability and care.
+                    </p>
+
+                    <div class="founder-links">
+                        <a href="https://in.linkedin.com/in/priyanka-rana-09283a256" target="_blank" class="founder-link">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+                            LinkedIn Profile
+                        </a>
+                        <a href="https://easternherald.com/2026/01/17/priyanka-rabhadia-building-purpose-driven-businesses-empowering-women-and-creating-impact-through-compassion/" target="_blank" class="founder-link">
+                            Eastern Herald Feature
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. FOUNDER 2: GANGA KISHOR RABHADIA -->
+    <section class="section-padding">
+        <div class="container">
+            <div class="founder-section reverse">
+                <div class="founder-image-wrapper">
+                    <!-- Updated for local images folder -->
+                    <img src="images/founder-ganga.jpg" alt="Ganga Kishor Rabhadia" class="founder-img">
+                </div>
+                <div class="founder-content">
+                    <h2>Ganga Kishor Rabhadia</h2>
+                    <span class="founder-role">Co-Founder & Compassion Anchor</span>
+                    
+                    <p class="founder-bio">
+                        Born in 1963, Ganga’s life has been a beautiful tapestry of family, resilience, and care. As a daughter, a mother, and now a grandmother, she has dedicated decades to nurturing her family and managing a home. Like many women of her generation, she navigated life’s ups and downs with quiet strength, often placing others' needs before her own.
+                    </p>
+                    <p class="founder-bio">
+                        Her journey wasn't defined by boardrooms, but by the lived realities of managing a household through economic uncertainties and social shifts. This lived experience gifted her a profound empathy for the struggles of other women and families trying to make ends meet.
+                    </p>
+
+                    <h3>Personal Transformation & Collaboration</h3>
+                    <p class="founder-bio">
+                        For many years, Ganga felt a deep desire to help but was unsure how to channel it beyond her immediate circle. It was her daughter, Priyanka, who recognized this immense potential and encouraged her to channel her empathy into structured action.
+                    </p>
+                    <p class="founder-bio">
+                        Through The Good Box Project, Ganga found a renewed sense of purpose. She brings to the table emotional intelligence, wisdom, and a "mother’s touch" that ensures our relief operations are handled with genuine warmth. She is the emotional anchor that keeps the organization grounded in human connection.
+                    </p>
+
+                    <div class="quote-box">
+                        “Empathy is not just a feeling we have when we see suffering. It is an action we must choose to take every single day.”
+                        <span class="quote-author">- Ganga Kishor Rabhadia</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. SHARED VALUES -->
+    <section class="section-padding values-section">
+        <div class="container text-center">
+            <h2 class="section-title">Our Shared Beliefs</h2>
+            <p>The foundation upon which The Good Box Project stands.</p>
+            
+            <div class="values-grid">
+                <span class="value-tag">Humanity over Hierarchy</span>
+                <span class="value-tag">Dignity in Giving & Receiving</span>
+                <span class="value-tag">Compassion with Accountability</span>
+                <span class="value-tag">Community Partnership</span>
+                <span class="value-tag">Transparent Action</span>
+            </div>
+
+            <div class="unified-statement">
+                <p>
+                    “We believe every human deserves safety, nourishment, care, and opportunity. And true impact begins with simple, consistent, human-centered action.”
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. IMPACT SECTION -->
+    <section class="section-padding">
+        <div class="container">
+            <div class="impact-content">
+                <!-- Updated for local images folder -->
+                <div class="impact-img">
+                    <img src="images/founders-community.jpg" alt="Founders with Community" style="border-radius: 12px; box-shadow: var(--shadow-card);">
+                </div>
+                <div class="impact-text">
+                    <h2>From Experience to Impact</h2>
+                    <p class="founder-bio">
+                        The strength of The Good Box Project lies in the synergy between Priyanka and Ganga. Their distinct life experiences have merged to create a balanced approach to humanitarian aid.
+                    </p>
+                    <ul class="impact-list">
+                        <li><strong>Priyanka’s Strategy + Ganga’s Heart:</strong> Combining professional operational systems with deep emotional intelligence.</li>
+                        <li><strong>External Exposure + Lived Wisdom:</strong> Leveraging modern leadership skills while respecting traditional values of care.</li>
+                        <li><strong>Discipline + Warmth:</strong> Ensuring resources reach the right people efficiently, without losing the human touch.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4>The Good Box Charitable Trust</h4>
+                    <p>Restoring dignity, one Good Box at a time. A non-profit charitable trust.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="mission.html">Mission & Vision</a></li>
+                        <li><a href="founder.html">Founders</a></li>
+                        <li><a href="volunteer.html">Volunteer</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="donate.html">Donate</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact Us</h4>
+                    <div class="contact-info">
+                        <p>📞 9619766033</p>
+                        <p>✉️ thegoodboxproject@outlook.com</p>
+                        <p>📍 Mumbai, India</p>
+                    </div>
+                    <div class="social-icons" style="margin-top: 20px;">
+                        <a href="#" class="social-icon" aria-label="Instagram">
+                            <svg viewBox="0 0 24 24"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 3.8 7.6v8.8A3.6 3.6 0 0 0 7.6 20.2h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6A3.6 3.6 0 0 0 16.4 4H7.6m9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8 1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3z"/></svg>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="Facebook">
+                            <svg viewBox="0 0 24 24"><path d="M12 2.04c-5.5 0-10 4.49-10 10.02 0 5 3.66 9.15 8.44 9.9v-7H7.9v-2.9h2.54V9.85c0-2.51 1.49-3.89 3.78-3.89 1.09 0 2.23.19 2.23.19v2.47h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.45 2.9h-2.33v7a10 10 0 0 0 8.44-9.9c0-5.53-4.5-10.02-10-10.02z"/></svg>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="YouTube">
+                            <svg viewBox="0 0 24 24"><path d="M23.5 6.19a3.02 3.02 0 0 0-2.12-2.14C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.38.55A3.02 3.02 0 0 0 .5 6.19C0 8.11 0 12 0 12s0 3.89.5 5.81a3.02 3.02 0 0 0 2.12 2.14c1.88.55 9.38.55 9.38.55s7.5 0 9.38-.55a3.02 3.02 0 0 0 2.12-2.14C24 15.89 24 12 24 12s0-3.89-.5-5.81zM9.55 15.57V8.43L15.82 12l-6.27 3.57z"/></svg>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="X (Twitter)">
+                            <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="LinkedIn">
+                            <svg viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                © 2026 The Good Box Charitable Trust. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Minimal JS -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const hamburger = document.querySelector('.hamburger');
+            const navMenu = document.querySelector('.nav-menu');
+
+            hamburger.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+            });
+
+            document.querySelectorAll('.nav-link').forEach(n => n.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+            }));
+        });
+    </script>
+</body>
+</html>
