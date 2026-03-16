@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Good Box Charitable Trust | Home</title>
+    <title>The Good Box Project | Home</title>
     <meta name="description" content="A quiet beginning of something meaningful. Compassion in action by The Good Box Project.">
 
     <!-- 1. FAVICON -->
@@ -164,7 +164,7 @@
             top: 0;
             width: 100%;
             z-index: 1000;
-            height: 80px;
+            height: 100px; /* INCREASED from 80px to 100px */
             display: flex;
             align-items: center;
         }
@@ -178,23 +178,21 @@
 
         .logo {
             font-family: var(--font-heading);
-            font-size: 1.5rem;
             font-weight: 700;
             color: var(--primary-color);
-            letter-spacing: -0.5px;
             display: flex;
             align-items: center;
             height: 100%;
-            gap: 12px;
+            gap: 15px;
         }
         
         .logo img {
-            height: 45px; /* Adjusted to 45px per request */
+            height: 70px; /* INCREASED from 45px to 70px */
             width: auto;
             object-fit: contain;
         }
 
-        /* Added style for the text beside logo */
+        /* Adjusted text sizes to fit the new taller header */
         .logo-text {
             display: flex;
             flex-direction: column;
@@ -204,7 +202,7 @@
 
         .logo-text span:first-child {
             font-family: var(--font-heading);
-            font-size: 0.85rem;
+            font-size: 0.75rem; /* Reduced slightly */
             color: var(--primary-color);
             font-weight: 700;
             text-transform: uppercase;
@@ -212,7 +210,7 @@
 
         .logo-text span:last-child {
             font-family: var(--font-body);
-            font-size: 0.65rem;
+            font-size: 0.55rem; /* Reduced slightly */
             color: var(--text-light);
             font-weight: 500;
             text-transform: uppercase;
@@ -293,7 +291,7 @@
             justify-content: center;
             text-align: center;
             color: var(--white);
-            background: url('assets/images/home-hero.jpeg') no-repeat center center/cover;
+            background: url('assets/images/home-hero.jpg') no-repeat center center/cover;
             margin-top: 0; 
         }
 
@@ -758,7 +756,7 @@
             text-align: center;
             font-size: 0.85rem;
             opacity: 0.6;
-            margin-top: 20px; /* Ensures spacing from grid */
+            margin-top: 20px; 
         }
 
         /* =========================================
@@ -780,7 +778,7 @@
             .nav-menu {
                 position: fixed;
                 left: -100%;
-                top: 80px;
+                top: 100px; /* Update mobile menu top to match new navbar height */
                 flex-direction: column;
                 background-color: var(--white);
                 width: 100%;
@@ -825,6 +823,7 @@
             <a href="index.html" class="logo">
                 <img src="assets/images/logo.png" alt="The Good Box Project Logo">
                 <div class="logo-text">
+                    <span>The Good Box Project</span>
                     <span>The Good Box Charitable Trust</span>
                 </div>
             </a>
@@ -853,8 +852,8 @@
         <div class="hero-overlay"></div>
         <div class="hero-content">
             <h1 class="hero-heading">A quiet beginning of something meaningful.</h1>
-            <!-- UPDATED SUBHEADING -->
-            <p class="hero-subheading">Born from compassion in Mumbai, reaching hearts and hands where help is needed.</p>
+            <!-- SPLIT INTO 2 LINES -->
+            <p class="hero-subheading">Born from compassion in Mumbai,<br>reaching hearts and hands where help is needed.</p>
             <p class="hero-supporting">Compassion in action — restoring dignity, one Good Box at a time.</p>
             <div class="hero-buttons">
                 <!-- Button 1: Mission -->
@@ -984,7 +983,7 @@
                     </div>
                     <div class="work-content">
                         <h3 class="work-title">
-                            <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-1.99.9-1.99 2L3 19c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-1 11h-4v4h-4v-4H6v-4h4V6h4v4h4v4z"/></svg>
+                            <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-1.99.9-1.99 2L3 19c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-1 11h-4v4h-4v-4H6v-4h4V6h4v4z"/></svg>
                             Medical Aid & Camps
                         </h3>
                         <p class="work-desc">Organizing health checkups, free medicines, and basic first-aid training.</p>
