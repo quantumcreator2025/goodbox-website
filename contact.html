@@ -13,9 +13,10 @@
 
     <style>
         /* =========================================
-           1. CSS VARIABLES & RESET
+           1. CSS VARIABLES & RESET (MASTER)
            ========================================= */
         :root {
+            /* Palette: Soft Greens, Warm Neutrals, Earthy Accents */
             --primary-color: #3A5F40; /* Muted Forest Green */
             --primary-dark: #2C4730;
             --secondary-color: #D4A373; /* Warm Sand/Beige */
@@ -34,6 +35,10 @@
             --shadow-hover: 0 15px 35px rgba(0,0,0,0.1);
             --radius-card: 12px;
             --transition: all 0.3s ease;
+            
+            /* Navbar Heights (MASTER TEMPLATE) */
+            --nav-height-desktop: 100px; 
+            --nav-height-mobile: 70px;   
         }
 
         * {
@@ -52,6 +57,8 @@
             color: var(--text-dark);
             line-height: 1.7;
             overflow-x: hidden;
+            /* Padding matches the Slim Navbar */
+            padding-top: var(--nav-height-desktop);
         }
 
         a {
@@ -103,11 +110,18 @@
             border-radius: 2px;
         }
 
+        .intro-text {
+            max-width: 700px;
+            margin: 0 auto 50px;
+            color: var(--text-light);
+            text-align: center;
+        }
+
         /* Buttons */
         .btn {
             display: inline-block;
             padding: 14px 32px;
-            border-radius: 50px; /* Standard Pill Shape for all pages */
+            border-radius: 50px; /* Standard Pill Shape */
             font-weight: 700;
             letter-spacing: 0.5px;
             text-transform: uppercase;
@@ -117,7 +131,6 @@
             transition: var(--transition);
         }
 
-        /* Standard Primary Button (Green Pill) */
         .btn-primary {
             background-color: var(--primary-color);
             color: var(--white);
@@ -128,7 +141,7 @@
             transform: translateY(-2px);
         }
 
-        /* Form Submit Button (Square/Full Width Override) */
+        /* Form Submit Button */
         .btn-submit {
             background-color: var(--primary-color);
             color: var(--white);
@@ -159,7 +172,7 @@
         }
 
         /* =========================================
-           2. NAVIGATION BAR
+           2. NAVIGATION BAR (MASTER TEMPLATE)
            ========================================= */
         .navbar {
             background-color: var(--white);
@@ -168,9 +181,10 @@
             top: 0;
             width: 100%;
             z-index: 1000;
-            height: 80px;
+            height: var(--nav-height-desktop); /* Slim 100px height */
             display: flex;
             align-items: center;
+            overflow: visible; /* CRITICAL: Allow logo to overflow */
         }
 
         .nav-container {
@@ -182,16 +196,43 @@
 
         .logo {
             font-family: var(--font-heading);
-            font-size: 1.5rem;
             font-weight: 700;
             color: var(--primary-color);
-            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+            height: 100%; 
+            position: relative; 
+            z-index: 1001; /* Logo sits ON TOP of content */
+            gap: 15px;
+        }
+        
+        .logo img {
+            height: 130px; /* BIG LOGO: Overhangs the bar */
+            width: auto;
+            object-fit: contain;
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            line-height: 1.1;
+            margin-top: 15px;
+        }
+
+        .logo-text span {
+            font-family: var(--font-heading);
+            font-size: 1rem;
+            color: var(--primary-color);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .nav-menu {
             display: flex;
             align-items: center;
-            gap: 30px;
+            gap: 25px; 
         }
 
         .nav-link {
@@ -201,29 +242,57 @@
             position: relative;
         }
 
-        .nav-link:hover { color: var(--primary-color); }
-        
-        .nav-link.active {
+        .nav-link:hover, .nav-link.active {
             color: var(--primary-color);
-            font-weight: 700;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--secondary-color);
+            transition: var(--transition);
+        }
+
+        .nav-link:hover::after, .nav-link.active::after {
+            width: 100%;
         }
 
         .donate-btn-nav {
             background-color: var(--accent-color);
             color: var(--white);
-            padding: 10px 24px;
+            padding: 12px 28px;
             border-radius: 30px;
             font-weight: 700;
             font-size: 0.9rem;
+            margin-left: 10px; 
         }
 
-        .donate-btn-nav:hover { background-color: #a63b3d; }
+        .donate-btn-nav:hover {
+            background-color: #a63b3d;
+            color: var(--white);
+        }
 
-        .hamburger { display: none; cursor: pointer; }
-        .bar { display: block; width: 25px; height: 3px; margin: 5px auto; background-color: var(--text-dark); transition: all 0.3s ease-in-out; }
+        /* Hamburger Menu (Mobile) */
+        .hamburger {
+            display: none;
+            cursor: pointer;
+        }
+
+        .bar {
+            display: block;
+            width: 25px;
+            height: 3px;
+            margin: 5px auto;
+            background-color: var(--text-dark);
+            transition: all 0.3s ease-in-out;
+        }
 
         /* =========================================
-           3. HERO SECTION (CLIMAX)
+           3. PAGE SPECIFIC CSS
            ========================================= */
         .hero {
             position: relative;
@@ -234,8 +303,8 @@
             justify-content: center;
             text-align: center;
             color: var(--white);
-            /* Updated for local images folder */
-            background: url('images/contact-hero.jpg') no-repeat center center/cover;
+            background: url('assets/images/contact-hero.jpg') no-repeat center center/cover;
+            z-index: 1;
         }
 
         .hero-overlay {
@@ -253,6 +322,7 @@
             z-index: 2;
             max-width: 900px;
             padding: 0 20px;
+            margin-top: 20px; /* Space for overhanging logo */
             animation: fadeIn 1.5s ease;
         }
 
@@ -286,9 +356,7 @@
             flex-wrap: wrap;
         }
 
-        /* =========================================
-           4. CONTACT MAIN LAYOUT
-           ========================================= */
+        /* Contact Layout */
         .contact-layout {
             display: grid;
             grid-template-columns: 1fr 1.5fr;
@@ -298,7 +366,6 @@
             z-index: 10;
         }
 
-        /* Info Card */
         .contact-info-card {
             background: var(--white);
             padding: 40px;
@@ -339,7 +406,6 @@
             font-size: 0.95rem;
         }
 
-        /* Form Section */
         .contact-form-card {
             background: var(--white);
             padding: 40px;
@@ -400,9 +466,6 @@
             text-align: center;
         }
 
-        /* =========================================
-           5. WHY MESSAGE MATTERS
-           ========================================= */
         .emotional-section {
             background-color: var(--bg-section-alt);
             text-align: center;
@@ -421,9 +484,6 @@
             font-family: var(--font-heading);
         }
 
-        /* =========================================
-           6. IMPACT CTA STRIP
-           ========================================= */
         .impact-cta-strip {
             background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-color) 100%);
             color: var(--white);
@@ -459,9 +519,6 @@
             color: var(--primary-color);
         }
 
-        /* =========================================
-           7. MAP & SOCIAL
-           ========================================= */
         .map-section {
             background-color: var(--white);
             padding-bottom: 0;
@@ -470,7 +527,7 @@
         .map-container {
             width: 100%;
             height: 400px;
-            filter: grayscale(100%); /* Modern look */
+            filter: grayscale(100%);
             transition: var(--transition);
         }
         
@@ -511,9 +568,6 @@
 
         .social-icon-lg svg { width: 28px; height: 28px; fill: currentColor; }
 
-        /* =========================================
-           8. FAQ SECTION
-           ========================================= */
         .faq-section {
             background-color: var(--bg-section-alt);
         }
@@ -567,9 +621,6 @@
             padding-top: 15px;
         }
 
-        /* =========================================
-           9. CLOSING MESSAGE
-           ========================================= */
         .closing-message {
             padding: 100px 0;
             text-align: center;
@@ -598,7 +649,7 @@
         }
 
         /* =========================================
-           10. FOOTER
+           4. FOOTER (MASTER TEMPLATE)
            ========================================= */
         footer {
             background-color: #1a2e1f;
@@ -624,7 +675,7 @@
         .footer-links li { margin-bottom: 10px; }
         .footer-links a:hover { color: var(--secondary-color); padding-left: 5px; }
 
-        .social-icons { display: flex; gap: 15px; }
+        .social-icons { display: flex; gap: 15px; flex-wrap: wrap; }
         .social-icon {
             width: 40px; height: 40px;
             background: rgba(255,255,255,0.1);
@@ -638,11 +689,17 @@
         .social-icon svg { width: 20px; height: 20px; fill: currentColor; }
 
         .contact-info p { margin-bottom: 10px; display: flex; align-items: center; gap: 10px; font-size: 0.9rem; }
-        .copyright { text-align: center; font-size: 0.85rem; opacity: 0.6; }
+        .copyright { text-align: center; font-size: 0.85rem; opacity: 0.6; margin-top: 20px; }
 
         /* =========================================
            MEDIA QUERIES
            ========================================= */
+        @media (max-width: 992px) {
+            .nav-menu { gap: 15px; }
+            .nav-link { font-size: 0.9rem; }
+            .logo-text { display: none; } 
+        }
+
         @media (max-width: 900px) {
             .contact-layout { grid-template-columns: 1fr; margin-top: 40px; }
             .hero-title { font-size: 2.5rem; }
@@ -655,7 +712,7 @@
             .nav-menu {
                 position: fixed;
                 left: -100%;
-                top: 80px;
+                top: var(--nav-height-mobile); 
                 flex-direction: column;
                 background-color: var(--white);
                 width: 100%;
@@ -663,9 +720,12 @@
                 padding: 20px 0;
                 transition: 0.3s;
                 box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+                max-height: calc(100vh - var(--nav-height-mobile));
+                overflow-y: auto;
             }
 
             .nav-menu.active { left: 0; }
+            .donate-btn-nav { margin: 10px auto 0; display: inline-block; }
             
             .mini-btns { flex-direction: column; width: 100%; }
             .mini-btn { width: 100%; }
@@ -679,14 +739,19 @@
 </head>
 <body>
 
-    <!-- NAVIGATION -->
+    <!-- NAVIGATION (MASTER TEMPLATE) -->
     <nav class="navbar">
         <div class="container nav-container">
-            <a href="index.html" class="logo">The Good Box Project</a>
+            <a href="index.html" class="logo">
+                <img src="assets/images/logo.png" alt="The Good Box Project Logo">
+                <div class="logo-text">
+                    <span>THE GOOD BOX CHARITABLE TRUST</span>
+                </div>
+            </a>
             <ul class="nav-menu">
                 <li><a href="index.html" class="nav-link">Home</a></li>
                 <li><a href="mission.html" class="nav-link">Mission & Vision</a></li>
-                <li><a href="founder.html" class="nav-link">Founders</a></li>
+                <li><a href="founders.html" class="nav-link">Founders</a></li>
                 <li><a href="collaborate.html" class="nav-link">Collaborate</a></li>
                 <li><a href="contact.html" class="nav-link active">Contact</a></li>
                 <li><a href="donate.html" class="donate-btn-nav">Donate</a></li>
@@ -709,7 +774,6 @@
                 Kindness begins with the simple act of reaching out. Whether you want to volunteer, collaborate, or simply ask a question, we are listening. From our roots in Mumbai to our expanding vision across India, your connection starts here.
             </p>
             <div class="hero-buttons">
-                <!-- Updated: Standard Pill Style + Google Form Link -->
                 <a href="https://forms.google.com/" target="_blank" class="btn btn-primary">Write to Us</a>
                 <a href="collaborate.html" class="btn btn-outline">Collaborate Now</a>
             </div>
@@ -808,7 +872,6 @@
                         <label for="consent">I agree to be contacted back regarding my inquiry.</label>
                     </div>
 
-                    <!-- Changed class to btn-submit to keep it full width/square as desired for forms -->
                     <button type="submit" class="btn-submit">Send Message</button>
                     
                     <p class="response-note">We usually respond within 24–48 hours.</p>
@@ -841,6 +904,16 @@
                     <h4>A Student Reaching Out</h4>
                     <p>Can become a lifelong part of the movement for social change.</p>
                 </div>
+                <!-- ADDED ITEM 1 -->
+                <div class="emotional-item">
+                    <h4>A Simple Question</h4>
+                    <p>Sometimes, all it takes is asking “How can I help?” to set real change in motion.</p>
+                </div>
+                <!-- ADDED ITEM 2 -->
+                <div class="emotional-item">
+                    <h4>A Shared Idea</h4>
+                    <p>A small thought, when shared, can turn into collective action that touches many lives.</p>
+                </div>
             </div>
         </div>
     </section>
@@ -865,7 +938,6 @@
             <h2 class="section-title">We’re Based in Mumbai</h2>
             <p style="margin-bottom: 30px; color: var(--text-light);">Initiating from Mumbai, expanding to India.</p>
         </div>
-        <!-- Generic Placeholder for Google Map -->
         <div class="map-container">
             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d60324.92767768267!2d72.8142954783203!3d19.075985900000004!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c6306644edc1%3A0x5da4ed8f8d648c69!2sMumbai%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1650000000000!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
         </div>
@@ -879,30 +951,30 @@
             
             <div class="social-icons-large">
                 <!-- Instagram -->
-                <a href="https://instagram.com/" target="_blank" class="social-icon-lg" aria-label="Instagram">
+                <a href="https://www.instagram.com/thegoodboxproject" target="_blank" class="social-icon-lg" aria-label="Instagram">
                     <svg viewBox="0 0 24 24"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 3.8 7.6v8.8A3.6 3.6 0 0 0 7.6 20.2h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6A3.6 3.6 0 0 0 16.4 4H7.6m9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8 1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3z"/></svg>
                 </a>
                 <!-- Facebook -->
-                <a href="https://facebook.com/" target="_blank" class="social-icon-lg" aria-label="Facebook">
+                <a href="https://www.facebook.com/thegoodboxproject" target="_blank" class="social-icon-lg" aria-label="Facebook">
                     <svg viewBox="0 0 24 24"><path d="M12 2.04c-5.5 0-10 4.49-10 10.02 0 5 3.66 9.15 8.44 9.9v-7H7.9v-2.9h2.54V9.85c0-2.51 1.49-3.89 3.78-3.89 1.09 0 2.23.19 2.23.19v2.47h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.45 2.9h-2.33v7a10 10 0 0 0 8.44-9.9c0-5.53-4.5-10.02-10-10.02z"/></svg>
                 </a>
                 <!-- YouTube -->
-                <a href="https://youtube.com/" target="_blank" class="social-icon-lg" aria-label="YouTube">
+                <a href="https://www.youtube.com/@TheGoodBoxProject" target="_blank" class="social-icon-lg" aria-label="YouTube">
                     <svg viewBox="0 0 24 24"><path d="M23.5 6.19a3.02 3.02 0 0 0-2.12-2.14C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.38.55A3.02 3.02 0 0 0 .5 6.19C0 8.11 0 12 0 12s0 3.89.5 5.81a3.02 3.02 0 0 0 2.12 2.14c1.88.55 9.38.55 9.38.55s7.5 0 9.38-.55a3.02 3.02 0 0 0 2.12-2.14C24 15.89 24 12 24 12s0-3.89-.5-5.81zM9.55 15.57V8.43L15.82 12l-6.27 3.57z"/></svg>
                 </a>
                 <!-- X (Twitter) -->
-                <a href="https://x.com/" target="_blank" class="social-icon-lg" aria-label="X (Twitter)">
+                <a href="https://www.x.com/TheGoodBox_" target="_blank" class="social-icon-lg" aria-label="X (Twitter)">
                     <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
                 </a>
                 <!-- LinkedIn -->
-                <a href="https://linkedin.com/" target="_blank" class="social-icon-lg" aria-label="LinkedIn">
+                <a href="https://www.linkedin.com/company/the-good-box-charitable-trust/" target="_blank" class="social-icon-lg" aria-label="LinkedIn">
                     <svg viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
                 </a>
             </div>
         </div>
     </section>
 
-    <!-- 8. FAQ SECTION (DUMMY OPERATIONAL QUESTIONS) -->
+    <!-- 8. FAQ SECTION -->
     <section class="section-padding faq-section">
         <div class="container">
             <div class="text-center">
@@ -956,23 +1028,26 @@
         </div>
     </section>
 
-    <!-- FOOTER -->
+    <!-- FOOTER (MASTER TEMPLATE) -->
     <footer id="contact">
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-col">
                     <h4>The Good Box Charitable Trust</h4>
                     <p>Restoring dignity, one Good Box at a time. A non-profit charitable trust.</p>
+                    <p style="margin-top: 10px; font-family: monospace; color: #bbb; letter-spacing: 1px;">
+                        PAN : AAFTT4362F
+                    </p>
                 </div>
                 <div class="footer-col">
                     <h4>Quick Links</h4>
                     <ul class="footer-links">
                         <li><a href="index.html">Home</a></li>
                         <li><a href="mission.html">Mission & Vision</a></li>
-                        <li><a href="founder.html">Founders</a></li>
+                        <li><a href="founders.html">Founders</a></li>
                         <li><a href="collaborate.html">Collaborate</a></li>
                         <li><a href="contact.html">Contact</a></li>
-                        <li><a href="donate.html">Donate</a></li>
+                        <li><a href="donate.html" style="color: var(--secondary-color); font-weight: 700;">Donate</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">
@@ -980,27 +1055,34 @@
                     <div class="contact-info">
                         <p>📞 9619766033</p>
                         <p>✉️ thegoodboxproject@outlook.com</p>
-                        <p>📍 Mumbai, India</p>
+                        <p>📍 Mumbai, India.</p>
                     </div>
                     <div class="social-icons" style="margin-top: 20px;">
-                        <a href="#" class="social-icon" aria-label="Instagram">
-                            <svg viewBox="0 0 24 24"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 3.8 7.6v8.8A3.6 3.6 0 0 0 7.6 20.2h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6A3.6 3.6 0 0 0 16.4 4H7.6m9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8 1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3z"/></svg>
+                        <!-- UPDATED GLOBAL SOCIAL LINKS -->
+                        <!-- 1. Instagram -->
+                        <a href="https://www.instagram.com/thegoodboxproject" target="_blank" class="social-icon" aria-label="Instagram">
+                            <svg viewBox="0 0 24 24"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 3.8 7.6v8.8A3.6 3.6 0 0 0 7.6 20.2h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6A3.6 3.6 0 0 0 16.4 4H7.6m9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8 1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1-5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3z"/></svg>
                         </a>
-                        <a href="#" class="social-icon" aria-label="Facebook">
-                            <svg viewBox="0 0 24 24"><path d="M12 2.04c-5.5 0-10 4.49-10 10.02 0 5 3.66 9.15 8.44 9.9v-7H7.9v-2.9h2.54V9.85c0-2.51 1.49-3.89 3.78-3.89 1.09 0 2.23.19 2.23.19v2.47h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.45 2.9h-2.33v7a10 10 0 0 0 8.44-9.9c0-5.53-4.5-10.02-10-10.02z"/></svg>
+                        <!-- 2. LinkedIn -->
+                        <a href="https://www.linkedin.com/company/the-good-box-charitable-trust/" target="_blank" class="social-icon" aria-label="LinkedIn">
+                            <svg viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
                         </a>
-                        <a href="#" class="social-icon" aria-label="YouTube">
-                            <svg viewBox="0 0 24 24"><path d="M23.5 6.19a3.02 3.02 0 0 0-2.12-2.14C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.38.55A3.02 3.02 0 0 0 .5 6.19C0 8.11 0 12 0 12s0 3.89.5 5.81a3.02 3.02 0 0 0 2.12 2.14c1.88.55 9.38.55 9.38.55s7.5 0 9.38-.55a3.02 3.02 0 0 0 2.12-2.14C24 15.89 24 12 24 12s0-3.89-.5-5.81zM9.55 15.57V8.43L15.82 12l-6.27 3.57z"/></svg>
-                        </a>
-                        <a href="#" class="social-icon" aria-label="X (Twitter)">
+                        <!-- 3. X (Twitter) -->
+                        <a href="https://www.x.com/TheGoodBox_" target="_blank" class="social-icon" aria-label="X (Twitter)">
                             <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
                         </a>
-                        <a href="#" class="social-icon" aria-label="LinkedIn">
-                            <svg viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+                        <!-- 4. Facebook -->
+                        <a href="https://www.facebook.com/thegoodboxproject" target="_blank" class="social-icon" aria-label="Facebook">
+                            <svg viewBox="0 0 24 24"><path d="M12 2.04c-5.5 0-10 4.49-10 10.02 0 5 3.66 9.15 8.44 9.9v-7H7.9v-2.9h2.54V9.85c0-2.51 1.49-3.89 3.77-3.89 1.09 0 2.23.19 2.23.19v2.47h-1.42c-1.1 0-1.42.68-1.42 1.39v2.15h2.78l-.45 2.9h-2.33V22c4.77-.75 8.44-4.9 8.44-9.94 0-5.53-4.5-10.02-10-10.02z"/></svg>
+                        </a>
+                        <!-- 5. YouTube -->
+                        <a href="https://www.youtube.com/@TheGoodBoxProject" target="_blank" class="social-icon" aria-label="YouTube">
+                            <svg viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
                         </a>
                     </div>
                 </div>
             </div>
+            <!-- COPYRIGHT ROW -->
             <div class="copyright">
                 © 2026 The Good Box Charitable Trust. All Rights Reserved.
             </div>
@@ -1017,7 +1099,7 @@
                 navMenu.classList.toggle('active');
             });
 
-            document.querySelectorAll('.nav-link').forEach(n => n.addEventListener('click', () => {
+            document.querySelectorAll('.nav-link, .donate-btn-nav').forEach(n => n.addEventListener('click', () => {
                 navMenu.classList.remove('active');
             }));
         });
