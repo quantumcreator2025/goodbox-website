@@ -13,9 +13,10 @@
 
     <style>
         /* =========================================
-           1. CSS VARIABLES & RESET
+           1. CSS VARIABLES & RESET (MASTER)
            ========================================= */
         :root {
+            /* Palette: Soft Greens, Warm Neutrals, Earthy Accents */
             --primary-color: #3A5F40; /* Muted Forest Green */
             --primary-dark: #2C4730;
             --secondary-color: #D4A373; /* Warm Sand/Beige */
@@ -34,6 +35,10 @@
             --shadow-hover: 0 15px 35px rgba(0,0,0,0.1);
             --radius-card: 12px;
             --transition: all 0.3s ease;
+            
+            /* Navbar Heights (MASTER TEMPLATE) */
+            --nav-height-desktop: 100px; 
+            --nav-height-mobile: 70px;   
         }
 
         * {
@@ -52,6 +57,8 @@
             color: var(--text-dark);
             line-height: 1.7;
             overflow-x: hidden;
+            /* Padding matches the Slim Navbar */
+            padding-top: var(--nav-height-desktop);
         }
 
         a {
@@ -103,6 +110,13 @@
             border-radius: 2px;
         }
 
+        .intro-text {
+            max-width: 700px;
+            margin: 0 auto 50px;
+            color: var(--text-light);
+            text-align: center;
+        }
+
         /* Buttons */
         .btn {
             display: inline-block;
@@ -149,7 +163,7 @@
         }
 
         /* =========================================
-           2. NAVIGATION BAR
+           2. NAVIGATION BAR (MASTER TEMPLATE)
            ========================================= */
         .navbar {
             background-color: var(--white);
@@ -158,9 +172,10 @@
             top: 0;
             width: 100%;
             z-index: 1000;
-            height: 80px;
+            height: var(--nav-height-desktop); /* Slim 100px height */
             display: flex;
             align-items: center;
+            overflow: visible; /* CRITICAL: Allow logo to overflow */
         }
 
         .nav-container {
@@ -172,16 +187,43 @@
 
         .logo {
             font-family: var(--font-heading);
-            font-size: 1.5rem;
             font-weight: 700;
             color: var(--primary-color);
-            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+            height: 100%; 
+            position: relative; 
+            z-index: 1001; /* Logo sits ON TOP of content */
+            gap: 15px;
+        }
+        
+        .logo img {
+            height: 130px; /* BIG LOGO: Overhangs the bar */
+            width: auto;
+            object-fit: contain;
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            line-height: 1.1;
+            margin-top: 15px;
+        }
+
+        .logo-text span {
+            font-family: var(--font-heading);
+            font-size: 1rem;
+            color: var(--primary-color);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .nav-menu {
             display: flex;
             align-items: center;
-            gap: 30px;
+            gap: 25px; 
         }
 
         .nav-link {
@@ -191,26 +233,57 @@
             position: relative;
         }
 
-        .nav-link:hover { color: var(--primary-color); }
-        
-        /* Removed active class logic from text links since Donate is a button here */
+        .nav-link:hover, .nav-link.active {
+            color: var(--primary-color);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--secondary-color);
+            transition: var(--transition);
+        }
+
+        .nav-link:hover::after, .nav-link.active::after {
+            width: 100%;
+        }
 
         .donate-btn-nav {
             background-color: var(--accent-color);
             color: var(--white);
-            padding: 10px 24px;
+            padding: 12px 28px;
             border-radius: 30px;
             font-weight: 700;
             font-size: 0.9rem;
+            margin-left: 10px; 
         }
 
-        .donate-btn-nav:hover { background-color: #a63b3d; }
+        .donate-btn-nav:hover {
+            background-color: #a63b3d;
+            color: var(--white);
+        }
 
-        .hamburger { display: none; cursor: pointer; }
-        .bar { display: block; width: 25px; height: 3px; margin: 5px auto; background-color: var(--text-dark); transition: all 0.3s ease-in-out; }
+        /* Hamburger Menu (Mobile) */
+        .hamburger {
+            display: none;
+            cursor: pointer;
+        }
+
+        .bar {
+            display: block;
+            width: 25px;
+            height: 3px;
+            margin: 5px auto;
+            background-color: var(--text-dark);
+            transition: all 0.3s ease-in-out;
+        }
 
         /* =========================================
-           3. HERO SECTION
+           3. PAGE SPECIFIC CSS
            ========================================= */
         .hero {
             position: relative;
@@ -221,8 +294,8 @@
             justify-content: center;
             text-align: center;
             color: var(--white);
-            /* Updated for local images folder */
-            background: url('images/donate-hero.jpg') no-repeat center center/cover;
+            background: url('assets/images/donate-hero.jpg') no-repeat center center/cover;
+            z-index: 1;
         }
 
         .hero-overlay {
@@ -240,6 +313,7 @@
             z-index: 2;
             max-width: 800px;
             padding: 0 20px;
+            margin-top: 20px; /* Space for overhanging logo */
             animation: fadeIn 1.5s ease;
         }
 
@@ -267,9 +341,7 @@
             opacity: 0.9;
         }
 
-        /* =========================================
-           4. DONATION CARDS (IMPACT OPTIONS)
-           ========================================= */
+        /* Donation Cards */
         .amount-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -309,7 +381,7 @@
             font-size: 0.95rem;
             color: var(--text-light);
             margin-bottom: 20px;
-            min-height: 45px; /* Align buttons */
+            min-height: 45px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -349,9 +421,6 @@
             font-family: var(--font-body);
         }
 
-        /* =========================================
-           5. QR SECTION
-           ========================================= */
         .qr-section {
             background-color: var(--bg-section-alt);
             text-align: center;
@@ -364,20 +433,6 @@
             box-shadow: var(--shadow-card);
             max-width: 500px;
             margin: 40px auto 0;
-        }
-
-        .qr-placeholder {
-            width: 250px;
-            height: 250px;
-            background-color: #f0f0f0;
-            margin: 0 auto 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #999;
-            font-size: 0.9rem;
-            border: 2px dashed #ccc;
-            border-radius: 8px;
         }
 
         .payment-methods {
@@ -394,9 +449,6 @@
             font-style: italic;
         }
 
-        /* =========================================
-           6. TRANSPARENCY SECTION
-           ========================================= */
         .transparency-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -424,18 +476,19 @@
             margin-bottom: 5px;
         }
 
-        /* =========================================
-           7. OTHER WAYS TO SUPPORT
-           ========================================= */
         .other-ways-section {
             background-color: var(--bg-section-alt);
         }
 
+        /* Enforced 2 column grid for desktop to get "2 in both lines" look */
         .ways-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(2, 1fr);
             gap: 30px;
             margin-top: 50px;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .way-card {
@@ -456,9 +509,6 @@
             margin-bottom: 10px;
         }
 
-        /* =========================================
-           8. TRUST NOTE & CLOSING
-           ========================================= */
         .trust-note {
             text-align: center;
             max-width: 800px;
@@ -478,7 +528,7 @@
         }
 
         /* =========================================
-           9. FOOTER (Matches Home)
+           4. FOOTER (MASTER TEMPLATE)
            ========================================= */
         footer {
             background-color: #1a2e1f;
@@ -504,7 +554,7 @@
         .footer-links li { margin-bottom: 10px; }
         .footer-links a:hover { color: var(--secondary-color); padding-left: 5px; }
 
-        .social-icons { display: flex; gap: 15px; }
+        .social-icons { display: flex; gap: 15px; flex-wrap: wrap; }
         .social-icon {
             width: 40px; height: 40px;
             background: rgba(255,255,255,0.1);
@@ -518,11 +568,17 @@
         .social-icon svg { width: 20px; height: 20px; fill: currentColor; }
 
         .contact-info p { margin-bottom: 10px; display: flex; align-items: center; gap: 10px; font-size: 0.9rem; }
-        .copyright { text-align: center; font-size: 0.85rem; opacity: 0.6; }
+        .copyright { text-align: center; font-size: 0.85rem; opacity: 0.6; margin-top: 20px; }
 
         /* =========================================
            MEDIA QUERIES
            ========================================= */
+        @media (max-width: 992px) {
+            .nav-menu { gap: 15px; }
+            .nav-link { font-size: 0.9rem; }
+            .logo-text { display: none; } 
+        }
+
         @media (max-width: 768px) {
             .hero-title { font-size: 2.5rem; }
             .section-title { font-size: 2rem; }
@@ -533,7 +589,7 @@
             .nav-menu {
                 position: fixed;
                 left: -100%;
-                top: 80px;
+                top: var(--nav-height-mobile); 
                 flex-direction: column;
                 background-color: var(--white);
                 width: 100%;
@@ -541,9 +597,14 @@
                 padding: 20px 0;
                 transition: 0.3s;
                 box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+                max-height: calc(100vh - var(--nav-height-mobile));
+                overflow-y: auto;
             }
 
             .nav-menu.active { left: 0; }
+            .donate-btn-nav { margin: 10px auto 0; display: inline-block; }
+
+            .ways-grid { grid-template-columns: 1fr; }
         }
 
         @keyframes fadeIn {
@@ -554,14 +615,19 @@
 </head>
 <body>
 
-    <!-- NAVIGATION -->
+    <!-- NAVIGATION (MASTER TEMPLATE) -->
     <nav class="navbar">
         <div class="container nav-container">
-            <a href="index.html" class="logo">The Good Box Project</a>
+            <a href="index.html" class="logo">
+                <img src="assets/images/logo.png" alt="The Good Box Project Logo">
+                <div class="logo-text">
+                    <span>THE GOOD BOX CHARITABLE TRUST</span>
+                </div>
+            </a>
             <ul class="nav-menu">
                 <li><a href="index.html" class="nav-link">Home</a></li>
                 <li><a href="mission.html" class="nav-link">Mission & Vision</a></li>
-                <li><a href="founder.html" class="nav-link">Founders</a></li>
+                <li><a href="founders.html" class="nav-link">Founders</a></li>
                 <li><a href="collaborate.html" class="nav-link">Collaborate</a></li>
                 <li><a href="contact.html" class="nav-link">Contact</a></li>
                 <li><a href="donate.html" class="donate-btn-nav">Donate</a></li>
@@ -662,8 +728,7 @@
             </div>
 
             <div class="qr-box">
-                <!-- Updated for local images folder -->
-                <img src="images/donation-qr.jpg" alt="QR Code" style="border-radius: 8px; width: 250px; height: 250px; object-fit: cover;">
+                <img src="assets/images/donation-qr.jpg" alt="QR Code" style="border-radius: 8px; width: 250px; height: 250px; object-fit: cover;">
                 <div class="payment-methods">UPI | Bank Transfer | Online Contribution</div>
                 <p class="qr-note">(QR will be updated shortly with official payment details.)</p>
                 <div style="margin-top: 20px;">
@@ -707,11 +772,17 @@
                     <h4 class="transp-title">Emergency Relief</h4>
                     <p style="font-size: 0.9rem; color: #666;">Rapid response funds for disasters like floods or building fires.</p>
                 </div>
+                <!-- ADDED ITEM -->
+                <div class="transp-item">
+                    <div class="transp-icon">🎒</div>
+                    <h4 class="transp-title">Community Support & Essentials</h4>
+                    <p style="font-size: 0.9rem; color: #666;">Providing everyday necessities like clothing and essential supplies to support dignity and daily living.</p>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- 5. OTHER WAYS TO SUPPORT -->
+    <!-- 5. OTHER WAYS TO SUPPORT (2x2 Grid) -->
     <section class="section-padding other-ways-section">
         <div class="container">
             <div class="text-center">
@@ -770,23 +841,26 @@
         </div>
     </section>
 
-    <!-- FOOTER -->
+    <!-- FOOTER (MASTER TEMPLATE) -->
     <footer id="contact">
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-col">
                     <h4>The Good Box Charitable Trust</h4>
                     <p>Restoring dignity, one Good Box at a time. A non-profit charitable trust.</p>
+                    <p style="margin-top: 10px; font-family: monospace; color: #bbb; letter-spacing: 1px;">
+                        PAN : AAFTT4362F
+                    </p>
                 </div>
                 <div class="footer-col">
                     <h4>Quick Links</h4>
                     <ul class="footer-links">
                         <li><a href="index.html">Home</a></li>
                         <li><a href="mission.html">Mission & Vision</a></li>
-                        <li><a href="founder.html">Founders</a></li>
+                        <li><a href="founders.html">Founders</a></li>
                         <li><a href="collaborate.html">Collaborate</a></li>
                         <li><a href="contact.html">Contact</a></li>
-                        <li><a href="donate.html">Donate</a></li>
+                        <li><a href="donate.html" style="color: var(--secondary-color); font-weight: 700;">Donate</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">
@@ -794,27 +868,34 @@
                     <div class="contact-info">
                         <p>📞 9619766033</p>
                         <p>✉️ thegoodboxproject@outlook.com</p>
-                        <p>📍 Mumbai, India</p>
+                        <p>📍 Mumbai, India.</p>
                     </div>
                     <div class="social-icons" style="margin-top: 20px;">
-                        <a href="#" class="social-icon" aria-label="Instagram">
+                        <!-- UPDATED GLOBAL SOCIAL LINKS -->
+                        <!-- 1. Instagram -->
+                        <a href="https://www.instagram.com/thegoodboxproject" target="_blank" class="social-icon" aria-label="Instagram">
                             <svg viewBox="0 0 24 24"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 3.8 7.6v8.8A3.6 3.6 0 0 0 7.6 20.2h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6A3.6 3.6 0 0 0 16.4 4H7.6m9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8 1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3z"/></svg>
                         </a>
-                        <a href="#" class="social-icon" aria-label="Facebook">
-                            <svg viewBox="0 0 24 24"><path d="M12 2.04c-5.5 0-10 4.49-10 10.02 0 5 3.66 9.15 8.44 9.9v-7H7.9v-2.9h2.54V9.85c0-2.51 1.49-3.89 3.78-3.89 1.09 0 2.23.19 2.23.19v2.47h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.45 2.9h-2.33v7a10 10 0 0 0 8.44-9.9c0-5.53-4.5-10.02-10-10.02z"/></svg>
+                        <!-- 2. LinkedIn -->
+                        <a href="https://www.linkedin.com/company/the-good-box-charitable-trust/" target="_blank" class="social-icon" aria-label="LinkedIn">
+                            <svg viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
                         </a>
-                        <a href="#" class="social-icon" aria-label="YouTube">
-                            <svg viewBox="0 0 24 24"><path d="M23.5 6.19a3.02 3.02 0 0 0-2.12-2.14C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.38.55A3.02 3.02 0 0 0 .5 6.19C0 8.11 0 12 0 12s0 3.89.5 5.81a3.02 3.02 0 0 0 2.12 2.14c1.88.55 9.38.55 9.38.55s7.5 0 9.38-.55a3.02 3.02 0 0 0 2.12-2.14C24 15.89 24 12 24 12s0-3.89-.5-5.81zM9.55 15.57V8.43L15.82 12l-6.27 3.57z"/></svg>
-                        </a>
-                        <a href="#" class="social-icon" aria-label="X (Twitter)">
+                        <!-- 3. X (Twitter) -->
+                        <a href="https://www.x.com/TheGoodBox_" target="_blank" class="social-icon" aria-label="X (Twitter)">
                             <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
                         </a>
-                        <a href="#" class="social-icon" aria-label="LinkedIn">
-                            <svg viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+                        <!-- 4. Facebook -->
+                        <a href="https://www.facebook.com/thegoodboxproject" target="_blank" class="social-icon" aria-label="Facebook">
+                            <svg viewBox="0 0 24 24"><path d="M12 2.04c-5.5 0-10 4.49-10 10.02 0 5 3.66 9.15 8.44 9.9v-7H7.9v-2.9h2.54V9.85c0-2.51 1.49-3.89 3.77-3.89 1.09 0 2.23.19 2.23.19v2.47h-1.42c-1.1 0-1.42.68-1.42 1.56v1.88h2.78l-.45 2.9h-2.33V22c4.77-.75 8.44-4.9 8.44-9.94 0-5.53-4.5-10.02-10-10.02z"/></svg>
+                        </a>
+                        <!-- 5. YouTube -->
+                        <a href="https://www.youtube.com/@TheGoodBoxProject" target="_blank" class="social-icon" aria-label="YouTube">
+                            <svg viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
                         </a>
                     </div>
                 </div>
             </div>
+            <!-- COPYRIGHT ROW -->
             <div class="copyright">
                 © 2026 The Good Box Charitable Trust. All Rights Reserved.
             </div>
@@ -831,7 +912,7 @@
                 navMenu.classList.toggle('active');
             });
 
-            document.querySelectorAll('.nav-link').forEach(n => n.addEventListener('click', () => {
+            document.querySelectorAll('.nav-link, .donate-btn-nav').forEach(n => n.addEventListener('click', () => {
                 navMenu.classList.remove('active');
             }));
         });
