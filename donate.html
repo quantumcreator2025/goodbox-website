@@ -341,10 +341,10 @@
             opacity: 0.9;
         }
 
-        /* Donation Cards */
+        /* Donation Cards - UPDATED FOR 3x2 GRID */
         .amount-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: 1fr; /* Mobile: 1 column */
             gap: 25px;
             margin-top: 50px;
         }
@@ -449,9 +449,10 @@
             font-style: italic;
         }
 
+        /* Transparency Grid - UPDATED FOR 3x2 GRID */
         .transparency-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            grid-template-columns: 1fr; /* Mobile: 1 column */
             gap: 30px;
             margin-top: 50px;
         }
@@ -483,7 +484,7 @@
         /* Enforced 2 column grid for desktop to get "2 in both lines" look */
         .ways-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: 1fr; /* Mobile: 1 column */
             gap: 30px;
             margin-top: 50px;
             max-width: 900px;
@@ -571,18 +572,34 @@
         .copyright { text-align: center; font-size: 0.85rem; opacity: 0.6; margin-top: 20px; }
 
         /* =========================================
-           MEDIA QUERIES
+           MEDIA QUERIES (LAYOUT FIXES)
            ========================================= */
+        @media (min-width: 768px) {
+            /* FIX: Force 3 columns for "Select an Impact" to get 2 lines of 3 */
+            .amount-grid {
+                grid-template-columns: repeat(3, 1fr); 
+            }
+            
+            /* FIX: Force 3 columns for "Where Your Donation Goes" to get 2 lines of 3 */
+            .transparency-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            /* FIX: Force 2 columns for "Other Ways" to get 2 lines of 2 */
+            .ways-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
         @media (max-width: 992px) {
             .nav-menu { gap: 15px; }
             .nav-link { font-size: 0.9rem; }
             .logo-text { display: none; } 
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 767px) {
             .hero-title { font-size: 2.5rem; }
             .section-title { font-size: 2rem; }
-            .amount-grid { grid-template-columns: 1fr 1fr; }
             
             .hamburger { display: block; z-index: 1001; }
             
@@ -604,7 +621,10 @@
             .nav-menu.active { left: 0; }
             .donate-btn-nav { margin: 10px auto 0; display: inline-block; }
 
-            .ways-grid { grid-template-columns: 1fr; }
+            /* Mobile grids reset to 1 column */
+            .amount-grid, .transparency-grid, .ways-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
         @keyframes fadeIn {
@@ -653,7 +673,7 @@
         </div>
     </header>
 
-    <!-- 2. IMPACT DONATION OPTIONS -->
+    <!-- 2. SELECT AN IMPACT (UPDATED LAYOUT: 3x2 GRID) -->
     <section id="options" class="section-padding">
         <div class="container">
             <div class="text-center">
@@ -662,7 +682,7 @@
             </div>
 
             <div class="amount-grid">
-                <!-- Card 1 -->
+                <!-- Row 1, Item 1 -->
                 <div class="donation-card">
                     <div>
                         <div class="amount-big">₹250</div>
@@ -671,7 +691,7 @@
                     <button class="card-btn" onclick="document.getElementById('qr-section').scrollIntoView();">Donate ₹250</button>
                 </div>
 
-                <!-- Card 2 -->
+                <!-- Row 1, Item 2 -->
                 <div class="donation-card">
                     <div>
                         <div class="amount-big">₹500</div>
@@ -680,7 +700,7 @@
                     <button class="card-btn" onclick="document.getElementById('qr-section').scrollIntoView();">Donate ₹500</button>
                 </div>
 
-                <!-- Card 3 -->
+                <!-- Row 1, Item 3 -->
                 <div class="donation-card">
                     <div>
                         <div class="amount-big">₹1,000</div>
@@ -689,7 +709,7 @@
                     <button class="card-btn" onclick="document.getElementById('qr-section').scrollIntoView();">Donate ₹1,000</button>
                 </div>
 
-                <!-- Card 4 -->
+                <!-- Row 2, Item 1 -->
                 <div class="donation-card">
                     <div>
                         <div class="amount-big">₹2,500</div>
@@ -698,7 +718,7 @@
                     <button class="card-btn" onclick="document.getElementById('qr-section').scrollIntoView();">Donate ₹2,500</button>
                 </div>
 
-                <!-- Card 5 -->
+                <!-- Row 2, Item 2 -->
                 <div class="donation-card">
                     <div>
                         <div class="amount-big">₹5,000</div>
@@ -707,7 +727,7 @@
                     <button class="card-btn" onclick="document.getElementById('qr-section').scrollIntoView();">Donate ₹5,000</button>
                 </div>
 
-                <!-- Custom -->
+                <!-- Row 2, Item 3 -->
                 <div class="donation-card">
                     <div class="custom-amount-container">
                         <label style="font-weight:700; color:var(--primary-color);">Enter Custom Amount</label>
@@ -738,7 +758,7 @@
         </div>
     </section>
 
-    <!-- 4. TRANSPARENCY SECTION -->
+    <!-- 4. WHERE YOUR DONATION GOES (UPDATED LAYOUT: 3x2 GRID) -->
     <section class="section-padding">
         <div class="container">
             <div class="text-center">
@@ -747,32 +767,37 @@
             </div>
 
             <div class="transparency-grid">
+                <!-- Row 1, Item 1 -->
                 <div class="transp-item">
                     <div class="transp-icon">🍚</div>
                     <h4 class="transp-title">Food & Ration</h4>
                     <p style="font-size: 0.9rem; color: #666;">Direct procurement of grains, pulses, and oil for distribution drives.</p>
                 </div>
+                <!-- Row 1, Item 2 -->
                 <div class="transp-item">
                     <div class="transp-icon">💧</div>
                     <h4 class="transp-title">Water & Nutrition</h4>
                     <p style="font-size: 0.9rem; color: #666;">Providing clean drinking water and nutritional supplements for children.</p>
                 </div>
+                <!-- Row 1, Item 3 -->
                 <div class="transp-item">
                     <div class="transp-icon">🧥</div>
                     <h4 class="transp-title">Seasonal Relief</h4>
                     <p style="font-size: 0.9rem; color: #666;">Blankets for winter, raincoats for monsoon, and hygiene kits.</p>
                 </div>
+                <!-- Row 2, Item 1 -->
                 <div class="transp-item">
                     <div class="transp-icon">💊</div>
                     <h4 class="transp-title">Medical Support</h4>
                     <p style="font-size: 0.9rem; color: #666;">Funding for health camps, first-aid supplies, and emergency medicines.</p>
                 </div>
+                <!-- Row 2, Item 2 -->
                 <div class="transp-item">
                     <div class="transp-icon">🚨</div>
                     <h4 class="transp-title">Emergency Relief</h4>
                     <p style="font-size: 0.9rem; color: #666;">Rapid response funds for disasters like floods or building fires.</p>
                 </div>
-                <!-- ADDED ITEM -->
+                <!-- Row 2, Item 3 -->
                 <div class="transp-item">
                     <div class="transp-icon">🎒</div>
                     <h4 class="transp-title">Community Support & Essentials</h4>
@@ -782,7 +807,7 @@
         </div>
     </section>
 
-    <!-- 5. OTHER WAYS TO SUPPORT (2x2 Grid) -->
+    <!-- 5. OTHER WAYS TO SUPPORT (UPDATED LAYOUT: 2x2 GRID) -->
     <section class="section-padding other-ways-section">
         <div class="container">
             <div class="text-center">
